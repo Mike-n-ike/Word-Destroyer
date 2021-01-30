@@ -107,6 +107,18 @@ class MLHero: SKSpriteNode {
         run(flip)
     }
     
+    func jump() {
+        let jump_up = SKAction.moveBy(x: 0, y: 80, duration: 0.2)
+        let fall_down = SKAction.moveBy(x: 0, y: -80, duration: 0.2)
+        
+        run(jump_up)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.run(fall_down)
+        }
+        
+    }
+    
     func fall() {
         physicsBody?.affectedByGravity = true
         physicsBody?.applyImpulse(CGVector(dx: -5, dy: 30))
