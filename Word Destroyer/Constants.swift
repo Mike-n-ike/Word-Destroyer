@@ -18,3 +18,4 @@ let kDefaultXToMovePerSecond: CGFloat = 320.0
 // Collision Detection
 let heroCategory: UInt32 = 0x1 << 0
 let wallCategory: UInt32 = 0x1 << 1
+
