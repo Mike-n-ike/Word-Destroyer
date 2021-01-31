@@ -32,7 +32,6 @@ class MLHero: SKSpriteNode {
     }
     
     func loadAppearance() {
-        //let bodyColor = UIColor(red: 102.0/255.0, green: 178.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         body = SKSpriteNode(color: UIColor.black, size: CGSize(width: self.frame.size.width, height: 35))
         body.position = CGPoint(x: 0, y: 2)
         addChild(body)
