@@ -11,9 +11,9 @@ import SpriteKit
 
 class MLEnemy: SKSpriteNode {
    
-    let ENEMY_WIDTH: CGFloat = 15.0
-    let ENEMY_HEIGHT: CGFloat = 50.0
-    let ENEMY_COLOR = UIColor.yellow
+    let ENEMY_WIDTH: CGFloat = 40.0
+    let ENEMY_HEIGHT: CGFloat = 20.0
+    let ENEMY_COLOR = UIColor.yellow // Make clear later
     
     init() {
         let size = CGSize(width: ENEMY_WIDTH, height: ENEMY_HEIGHT)
@@ -25,7 +25,7 @@ class MLEnemy: SKSpriteNode {
     
     func loadPhysicsBodyWithSize(size: CGSize) {
         physicsBody = SKPhysicsBody(rectangleOf: size)
-        physicsBody?.collisionBitMask = 0
+        physicsBody?.collisionBitMask = 4
         physicsBody?.affectedByGravity = false
     }
 
