@@ -13,8 +13,12 @@ class MLHero: SKSpriteNode {
     
     var body: SKSpriteNode!
     var arm: SKSpriteNode!
+    var right_arm: SKSpriteNode!
     var leftFoot: SKSpriteNode!
     var rightFoot: SKSpriteNode!
+    
+    var gunHandle: SKSpriteNode!
+    var gunBarrel: SKSpriteNode!
     
     var isUpsideDown = false
     
@@ -62,13 +66,33 @@ class MLHero: SKSpriteNode {
         arm.position = CGPoint(x: -10, y: -7)
         body.addChild(arm)
         
+        right_arm = SKSpriteNode(color: armColor, size: CGSize(width: 8, height: 14))
+        right_arm.anchorPoint = CGPoint(x: 1.0, y: 0.9)
+        right_arm.position = CGPoint(x: 15, y: -7)
+        body.addChild(right_arm)
+        
         let hand = SKSpriteNode(color: skinColor, size: CGSize(width: arm.size.width, height: 5))
+        let right_hand = SKSpriteNode(color: skinColor, size: CGSize(width: arm.size.width, height: 5))
         
         let new_arm_height = -arm.size.height*0.9
         let new_hand_height = hand.size.height/2
         
         hand.position = CGPoint(x: 0, y: new_arm_height + new_hand_height)
         arm.addChild(hand)
+        
+        
+        right_hand.position = CGPoint(x: -4, y: new_arm_height + new_hand_height)
+        right_arm.addChild(right_hand)
+        
+        let gunColor = UIColor(red: 0/255, green: 255/255, blue: 128/255, alpha: 1.0)
+        gunHandle = SKSpriteNode(color: gunColor, size: CGSize(width: 8, height: 6))
+        gunBarrel = SKSpriteNode(color: gunColor, size: CGSize(width: 6, height: 20))
+        
+        gunHandle.anchorPoint = CGPoint(x: 1, y: 0.5)
+        gunBarrel.anchorPoint = CGPoint(x: 0, y: 0.9)
+        
+        right_hand.addChild(gunHandle)
+        right_hand.addChild(gunBarrel)
         
         leftFoot = SKSpriteNode(color: UIColor.black, size: CGSize(width: 9, height: 4))
         leftFoot.position = CGPoint(x: -6, y: -size.height/2 + leftFoot.size.height/2)
@@ -77,6 +101,8 @@ class MLHero: SKSpriteNode {
         rightFoot = leftFoot.copy() as? SKSpriteNode
         rightFoot.position.x = 8
         addChild(rightFoot)
+        
+        
         
     }
     
@@ -129,9 +155,10 @@ class MLHero: SKSpriteNode {
     }
     
     func startRunning() {
-        let rotateBack = SKAction.rotate(byAngle: -CGFloat(Double.pi)/2.0, duration: 0.1)
-        arm.run(rotateBack)
+        let rotateForward = SKAction.rotate(byAngle: CGFloat(Double.pi)/2.0, duration: 0.15)
+        right_arm.run(rotateForward)
         
+        runningArm()
         performOneRunCycle()
     }
     
@@ -149,6 +176,17 @@ class MLHero: SKSpriteNode {
         })
     }
     
+    func runningArm() {
+        let rotateBack = SKAction.rotate(byAngle: -CGFloat(Double.pi)/2.0, duration: 0.15)
+        let rotateForward = SKAction.rotate(byAngle: CGFloat(Double.pi)/2.0, duration: 0.15)
+        
+        arm.run(rotateBack, completion: { () -> Void in
+            self.arm.run(rotateForward, completion: { () -> Void in
+                self.runningArm()
+            })
+        })
+    }
+    
     func breathe() {
         let breatheOut = SKAction.moveBy(x: 0, y: -2, duration: 1)
         let breatheIn = SKAction.moveBy(x: 0, y: 2, duration: 1)
@@ -160,6 +198,7 @@ class MLHero: SKSpriteNode {
         body.removeAllActions()
         leftFoot.removeAllActions()
         rightFoot.removeAllActions()
+        arm.removeAllActions()
     }
     
     

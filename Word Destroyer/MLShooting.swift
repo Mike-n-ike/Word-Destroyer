@@ -39,8 +39,8 @@ class MLShooting: SKSpriteNode {
     @objc func generateBullets() {
         
         let bullet = MLBullet()
-        bullet.position.x = -235 //size.width/2 + bullet.size.width/2
-        bullet.position.y =  30 // (kMLGroundHeight/2 + bullet.size.height/2)
+        bullet.position.x = -210 //size.width/2 + bullet.size.width/2
+        bullet.position.y =  25 // (kMLGroundHeight/2 + bullet.size.height/2)
         bullets.append(bullet)
         bulletTrackers.append(bullet)
         addChild(bullet)

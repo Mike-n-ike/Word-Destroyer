@@ -11,7 +11,7 @@ import SpriteKit
 
 class MLWall: SKSpriteNode {
    
-    let WALL_WIDTH: CGFloat = 30.0
+    let WALL_WIDTH: CGFloat = 15.0
     let WALL_HEIGHT: CGFloat = 50.0
     let WALL_COLOR = UIColor.black
     

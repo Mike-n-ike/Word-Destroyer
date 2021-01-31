@@ -12,7 +12,7 @@ import SpriteKit
 class MLBullet: SKSpriteNode {
    
     let BULLET_WIDTH: CGFloat = 20.0
-    let BULLET_HEIGHT: CGFloat = 10.0
+    let BULLET_HEIGHT: CGFloat = 8.0
     let BULLET_COLOR = UIColor.red
     
     init() {

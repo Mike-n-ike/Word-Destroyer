@@ -26,12 +26,14 @@ class MLWallGenerator: SKSpriteNode {
     
     @objc func generateWall() {
         var scale: CGFloat
+        
         let rand = arc4random_uniform(2)
         if rand == 0 {
-            scale = -1.0
+            scale = 2.5
         } else {
             scale = 1.0
         }
+        
         
         let wall = MLWall()
         wall.position.x = size.width/2 + wall.size.width/2
