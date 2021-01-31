@@ -11,6 +11,7 @@ import SpriteKit
 
 class MLHero: SKSpriteNode {
     
+    var hair: SKSpriteNode!
     var body: SKSpriteNode!
     var arm: SKSpriteNode!
     var right_arm: SKSpriteNode!
@@ -31,9 +32,15 @@ class MLHero: SKSpriteNode {
     }
     
     func loadAppearance() {
-        body = SKSpriteNode(color: UIColor.black, size: CGSize(width: self.frame.size.width, height: 40))
+        //let bodyColor = UIColor(red: 102.0/255.0, green: 178.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+        body = SKSpriteNode(color: UIColor.black, size: CGSize(width: self.frame.size.width, height: 35))
         body.position = CGPoint(x: 0, y: 2)
         addChild(body)
+        
+        let hairColor = UIColor(red: 102.0/255.0, green: 51.0/255.0, blue: 0.0/255.0, alpha: 1.0)
+        let hair = SKSpriteNode(color: hairColor, size: CGSize(width: self.frame.size.width, height: 20))
+        hair.position = CGPoint(x: 0, y: 10)
+        body.addChild(hair)
         
         let skinColor = UIColor(red: 207.0/255.0, green: 193.0/255.0, blue: 168.0/255.0, alpha: 1.0)
         let face = SKSpriteNode(color: skinColor, size: CGSize(width: self.frame.size.width, height: 12))
@@ -55,7 +62,7 @@ class MLHero: SKSpriteNode {
         rightEye.position = CGPoint(x: 14, y: 0)
         face.addChild(rightEye)
         
-        let eyebrow = SKSpriteNode(color: UIColor.black, size: CGSize(width: 11, height: 1))
+        let eyebrow = SKSpriteNode(color: hairColor, size: CGSize(width: 11, height: 1))
         eyebrow.position = CGPoint(x: -1, y: leftEye.size.height/2)
         leftEye.addChild(eyebrow)
         rightEye.addChild(eyebrow.copy() as! SKSpriteNode)
@@ -84,7 +91,7 @@ class MLHero: SKSpriteNode {
         right_hand.position = CGPoint(x: -4, y: new_arm_height + new_hand_height)
         right_arm.addChild(right_hand)
         
-        let gunColor = UIColor(red: 0/255, green: 255/255, blue: 128/255, alpha: 1.0)
+        let gunColor = UIColor(red: 130/255, green: 71/255, blue: 232/255, alpha: 1.0)
         gunHandle = SKSpriteNode(color: gunColor, size: CGSize(width: 8, height: 6))
         gunBarrel = SKSpriteNode(color: gunColor, size: CGSize(width: 6, height: 20))
         
@@ -94,7 +101,7 @@ class MLHero: SKSpriteNode {
         right_hand.addChild(gunHandle)
         right_hand.addChild(gunBarrel)
         
-        leftFoot = SKSpriteNode(color: UIColor.black, size: CGSize(width: 9, height: 4))
+        leftFoot = SKSpriteNode(color: UIColor.black, size: CGSize(width: 10, height: 7))
         leftFoot.position = CGPoint(x: -6, y: -size.height/2 + leftFoot.size.height/2)
         addChild(leftFoot)
         
@@ -163,8 +170,8 @@ class MLHero: SKSpriteNode {
     }
     
     func performOneRunCycle() {
-        let up = SKAction.moveBy(x: 0, y: 2, duration: 0.05)
-        let down = SKAction.moveBy(x: 0, y: -2, duration: 0.05)
+        let up = SKAction.moveBy(x: 0, y: 4, duration: 0.05)
+        let down = SKAction.moveBy(x: 0, y: -4, duration: 0.05)
         
         leftFoot.run(up, completion: { () -> Void in
             self.leftFoot.run(down)
