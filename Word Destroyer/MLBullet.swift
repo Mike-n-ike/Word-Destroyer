@@ -25,6 +25,7 @@ class MLBullet: SKSpriteNode {
     
     func loadPhysicsBodyWithSize(size: CGSize) {
         physicsBody = SKPhysicsBody(rectangleOf: size)
+        physicsBody?.categoryBitMask = bulletCategory
         physicsBody?.collisionBitMask = 0
         physicsBody?.affectedByGravity = false
     }

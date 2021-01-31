@@ -11,17 +11,20 @@ import SpriteKit
 
 class MLMovingGround: SKSpriteNode {
     
-    let NUMBER_OF_SEGMENTS = 20
-    let COLOR_ONE = UIColor(red: 88.0/255.0, green: 148.0/255.0, blue: 87.0/255.0, alpha: 1.0)
-    let COLOR_TWO = UIColor(red: 120.0/255.0, green: 195.0/255.0, blue: 118.0/255.0, alpha: 1.0)
+    //let NUMBER_OF_SEGMENTS = 20
+    //let COLOR_ONE = UIColor(red: 88.0/255.0, green: 148.0/255.0, blue: 87.0/255.0, alpha: 1.0)
+    //let COLOR_TWO = UIColor(red: 120.0/255.0, green: 195.0/255.0, blue: 118.0/255.0, alpha: 1.0)
     
     var dirt: SKSpriteNode!
     var grass: SKSpriteNode!
     var lowerDirt: SKSpriteNode!
     
     init(size: CGSize) {
-        super.init(texture: nil, color: UIColor.brown, size: CGSize(width: size.width*8, height: size.height))
+        super.init(texture: nil, color: UIColor.brown, size: CGSize(width: size.width*100, height: size.height))
         loadGround()
+        
+        loadPhysicsBodyWithSize(size: size)
+        
         /*
         anchorPoint = CGPoint(x: 0, y: 0.5)
         
@@ -42,23 +45,26 @@ class MLMovingGround: SKSpriteNode {
     }
     
     func loadGround() {
-        lowerDirt = SKSpriteNode(color: UIColor.brown, size: CGSize(width: 2*self.frame.size.width, height: 30))
+        lowerDirt = SKSpriteNode(color: UIColor.brown, size: CGSize(width: 100*self.frame.size.width, height: 30))
         lowerDirt.position = CGPoint(x:0, y: 0)
         addChild(lowerDirt)
         
         let dirtColor = UIColor(red: 51.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 1.0)
-        dirt = SKSpriteNode(color: dirtColor, size: CGSize(width: 2*self.frame.size.width, height: 15))
+        dirt = SKSpriteNode(color: dirtColor, size: CGSize(width: 100*self.frame.size.width, height: 15))
         dirt.position = CGPoint(x: 0, y: 3)
         lowerDirt.addChild(dirt)
         
         let grassColor = UIColor(red: 0.0/255.0, green: 153.0/255.0, blue: 76.0/255.0, alpha: 1.0)
-        grass = SKSpriteNode(color: grassColor, size: CGSize(width: 2*self.frame.size.width, height: 12))
+        grass = SKSpriteNode(color: grassColor, size: CGSize(width: 100*self.frame.size.width, height: 12))
         grass.position = CGPoint(x: 0, y: 7)
         lowerDirt.addChild(grass)
-        
-        
-        
-        
+    }
+    
+    func loadPhysicsBodyWithSize(size: CGSize) {
+        physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
+        physicsBody?.categoryBitMask = platformCategory
+        physicsBody?.collisionBitMask = 1
+        physicsBody?.affectedByGravity = false
     }
 
     required init?(coder aDecoder: NSCoder) {

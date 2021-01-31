@@ -17,8 +17,8 @@ class MLEnemyGenerator: SKSpriteNode {
     
     func startGeneratingEnemiesEvery(seconds: TimeInterval) {
         generationTimer = Timer.scheduledTimer(timeInterval: seconds, target: self, selector: #selector(generateEnemy), userInfo: nil, repeats: true)
-        
     }
+    
     
     func stopGenerating() {
         generationTimer?.invalidate()
@@ -27,11 +27,12 @@ class MLEnemyGenerator: SKSpriteNode {
     @objc func generateEnemy() {
         var scale: CGFloat
         
-        let rand = arc4random_uniform(2)
-        if rand == 0 {
-            scale = 2.5
+        let rand = arc4random_uniform(5)
+        
+        if rand % 2 == 0 {
+            scale = -CGFloat(rand)
         } else {
-            scale = 1.0
+            scale = CGFloat(rand)
         }
         
         
@@ -41,6 +42,10 @@ class MLEnemyGenerator: SKSpriteNode {
         enemies.append(enemy)
         enemyTrackers.append(enemy)
         addChild(enemy)
+    }
+    
+    func destoryEnemy() {
+        
     }
     
     @objc func stopEnemies() {

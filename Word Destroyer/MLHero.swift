@@ -71,6 +71,7 @@ class MLHero: SKSpriteNode {
         arm.anchorPoint = CGPoint(x: 0.5, y: 0.9)
         arm.position = CGPoint(x: -10, y: -7)
         body.addChild(arm)
+        arm.zPosition = 2
         
         right_arm = SKSpriteNode(color: armColor, size: CGSize(width: 8, height: 14))
         right_arm.anchorPoint = CGPoint(x: 1.0, y: 0.9)
@@ -90,6 +91,9 @@ class MLHero: SKSpriteNode {
         right_hand.position = CGPoint(x: -4, y: new_arm_height + new_hand_height)
         right_arm.addChild(right_hand)
         
+        right_arm.zPosition = -2
+        
+        /*
         let gunColor = UIColor(red: 130/255, green: 71/255, blue: 232/255, alpha: 1.0)
         gunHandle = SKSpriteNode(color: gunColor, size: CGSize(width: 8, height: 6))
         gunBarrel = SKSpriteNode(color: gunColor, size: CGSize(width: 6, height: 20))
@@ -99,23 +103,23 @@ class MLHero: SKSpriteNode {
         
         right_hand.addChild(gunHandle)
         right_hand.addChild(gunBarrel)
+         */
         
         leftFoot = SKSpriteNode(color: UIColor.black, size: CGSize(width: 10, height: 7))
         leftFoot.position = CGPoint(x: -6, y: -size.height/2 + leftFoot.size.height/2)
         addChild(leftFoot)
+        leftFoot.zPosition = 1
         
         rightFoot = leftFoot.copy() as? SKSpriteNode
         rightFoot.position.x = 8
         addChild(rightFoot)
-        
-        
-        
+        rightFoot.zPosition = 1
     }
     
     func loadPhysicsBodyWithSize(size: CGSize) {
         physicsBody = SKPhysicsBody(rectangleOf: size)
         physicsBody?.categoryBitMask = heroCategory
-        physicsBody?.contactTestBitMask = wallCategory
+        physicsBody?.contactTestBitMask = wallCategory | enemyCategory
         physicsBody?.affectedByGravity = false
     }
 
@@ -141,10 +145,11 @@ class MLHero: SKSpriteNode {
     }
     
     func jump() {
-        let jump_up = SKAction.moveBy(x: 0, y: 80, duration: 0.2)
-        let fall_down = SKAction.moveBy(x: 0, y: -80, duration: 0.2)
+        let jump_up = SKAction.moveBy(x: 0, y: 100, duration: 0.2)
+        let fall_down = SKAction.moveBy(x: 0, y: -100, duration: 0.2)
         
         run(jump_up)
+        
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.run(fall_down)
@@ -161,8 +166,8 @@ class MLHero: SKSpriteNode {
     }
     
     func startRunning() {
-        let rotateForward = SKAction.rotate(byAngle: CGFloat(Double.pi)/2.0, duration: 0.15)
-        right_arm.run(rotateForward)
+        let rotateBack = SKAction.rotate(byAngle: -CGFloat(Double.pi)/2.0, duration: 0.15)
+        arm.run(rotateBack)
         
         runningArm()
         performOneRunCycle()
@@ -186,11 +191,21 @@ class MLHero: SKSpriteNode {
         let rotateBack = SKAction.rotate(byAngle: -CGFloat(Double.pi)/2.0, duration: 0.15)
         let rotateForward = SKAction.rotate(byAngle: CGFloat(Double.pi)/2.0, duration: 0.15)
         
-        arm.run(rotateBack, completion: { () -> Void in
-            self.arm.run(rotateForward, completion: { () -> Void in
+        arm.run(rotateForward, completion: { () -> Void in
+            self.arm.run(rotateBack)
+            self.right_arm.run(rotateForward, completion: { () -> Void in
+                self.right_arm.run(rotateBack)
+                    self.runningArm()
+            })
+        })
+        
+        /*
+        right_arm.run(rotateForward, completion: { () -> Void in
+            self.right_arm.run(rotateBack, completion: { () -> Void in
                 self.runningArm()
             })
         })
+         */
     }
     
     func breathe() {
@@ -205,6 +220,7 @@ class MLHero: SKSpriteNode {
         leftFoot.removeAllActions()
         rightFoot.removeAllActions()
         arm.removeAllActions()
+        right_arm.removeAllActions()
     }
     
     
