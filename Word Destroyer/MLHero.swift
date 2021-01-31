@@ -77,6 +77,7 @@ class MLHero: SKSpriteNode {
         rightFoot = leftFoot.copy() as? SKSpriteNode
         rightFoot.position.x = 8
         addChild(rightFoot)
+        
     }
     
     func loadPhysicsBodyWithSize(size: CGSize) {

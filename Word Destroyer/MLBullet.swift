@@ -1,5 +1,5 @@
 //
-//  MLWall.swift
+//  MLBullet.swift
 //  Word Destroyer
 //
 //  Created by Michael Lu on 2021-01-30.
@@ -9,15 +9,15 @@
 import Foundation
 import SpriteKit
 
-class MLWall: SKSpriteNode {
+class MLBullet: SKSpriteNode {
    
-    let WALL_WIDTH: CGFloat = 30.0
-    let WALL_HEIGHT: CGFloat = 50.0
-    let WALL_COLOR = UIColor.black
+    let BULLET_WIDTH: CGFloat = 20.0
+    let BULLET_HEIGHT: CGFloat = 10.0
+    let BULLET_COLOR = UIColor.red
     
     init() {
-        let size = CGSize(width: WALL_WIDTH, height: WALL_HEIGHT)
-        super.init(texture: nil, color: WALL_COLOR, size: size)
+        let size = CGSize(width: BULLET_WIDTH, height: BULLET_HEIGHT)
+        super.init(texture: nil, color: BULLET_COLOR, size: size)
         
         loadPhysicsBodyWithSize(size: size)
         startMoving()
@@ -26,7 +26,6 @@ class MLWall: SKSpriteNode {
     func loadPhysicsBodyWithSize(size: CGSize) {
         physicsBody = SKPhysicsBody(rectangleOf: size)
         physicsBody?.collisionBitMask = 0
-        physicsBody?.categoryBitMask = wallCategory
         physicsBody?.affectedByGravity = false
     }
 
@@ -35,8 +34,8 @@ class MLWall: SKSpriteNode {
     }
     
     @objc func startMoving() {
-        let moveLeft = SKAction.moveBy(x: -kDefaultXToMovePerSecond, y: 0, duration: 1)
-        run(SKAction.repeatForever(moveLeft))
+        let moveRight = SKAction.moveBy(x: 2*kDefaultXToMovePerSecond, y: 0, duration: 1)
+        run(SKAction.repeatForever(moveRight))
     }
     
     @objc func stopMoving() {
