@@ -27,12 +27,12 @@ class MLPlatformGenerator: SKSpriteNode {
     @objc func generatePlatform() {
         var scale: CGFloat
         
-        let rand = arc4random_uniform(4)
+        let rand = arc4random_uniform(2)
         
         if rand % 2 == 0 {
-            scale = -2*CGFloat(rand)
+            scale = -3
         } else {
-            scale = 2*CGFloat(rand)
+            scale = -5*CGFloat(rand)
         }
         
         let platform = MLPlatform()

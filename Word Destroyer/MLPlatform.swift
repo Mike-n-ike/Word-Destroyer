@@ -58,7 +58,7 @@ class MLPlatform: SKSpriteNode {
     }
     
     @objc func startMoving() {
-        let moveLeft = SKAction.moveBy(x: -1.2*kDefaultXToMovePerSecond, y: 0, duration: 1)
+        let moveLeft = SKAction.moveBy(x: -0.8*kDefaultXToMovePerSecond, y: 0, duration: 1)
         run(SKAction.repeatForever(moveLeft))
     }
     

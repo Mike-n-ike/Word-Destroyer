@@ -120,7 +120,9 @@ class MLHero: SKSpriteNode {
         physicsBody = SKPhysicsBody(rectangleOf: size)
         physicsBody?.categoryBitMask = heroCategory
         physicsBody?.contactTestBitMask = wallCategory | enemyCategory
-        physicsBody?.affectedByGravity = false
+        physicsBody?.affectedByGravity = true
+        
+        
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -145,15 +147,16 @@ class MLHero: SKSpriteNode {
     }
     
     func jump() {
-        let jump_up = SKAction.moveBy(x: 0, y: 100, duration: 0.2)
-        let fall_down = SKAction.moveBy(x: 0, y: -100, duration: 0.2)
+        let jump_up = SKAction.moveBy(x: 0, y: 120, duration: 0.2)
+        //let fall_down = SKAction.moveBy(x: 0, y: -100, duration: 0.2)
         
         run(jump_up)
         
-        
+        /*
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.run(fall_down)
         }
+         */
         
     }
     

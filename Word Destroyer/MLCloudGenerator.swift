@@ -22,7 +22,7 @@ class MLCloudGenerator: SKSpriteNode {
             let x = CGFloat(arc4random_uniform(UInt32(size.width))) - size.width/2
             let y = CGFloat(arc4random_uniform(UInt32(size.height))) - size.height/2
             cloud.position = CGPoint(x: x, y: y)
-            cloud.zPosition = -1
+            cloud.zPosition = -5
             addChild(cloud)
         }
     }
@@ -40,7 +40,7 @@ class MLCloudGenerator: SKSpriteNode {
         let y_pos = CGFloat(arc4random_uniform(UInt32(size.height))) - size.height/2
         let cloud = MLCloud(size: CGSize(width: CLOUD_WIDTH, height: CLOUD_HEIGHT))
         cloud.position = CGPoint(x: x_pos, y: y_pos)
-        cloud.zPosition = -1
+        cloud.zPosition = -5
         addChild(cloud)
     }
     

@@ -24,6 +24,9 @@ class MLEnemy: SKSpriteNode {
     var feather4: SKSpriteNode!
     var feather5: SKSpriteNode!
     
+    var eye: SKSpriteNode!
+    var pupil: SKSpriteNode!
+    
     
     
     init() {
@@ -67,6 +70,17 @@ class MLEnemy: SKSpriteNode {
         feather5 = SKSpriteNode(color: UIColor.black, size: CGSize(width: 13, height: 5))
         feather5.anchorPoint = CGPoint(x: 0, y: -2)
         leftWing.addChild(feather5)
+        
+        let eyeColor = UIColor.white
+        eye = SKSpriteNode(color: eyeColor, size: CGSize(width: 6, height: 6))
+        eye.position = CGPoint(x: -7, y: 0)
+        
+        pupil = SKSpriteNode(color: UIColor.black, size: CGSize(width: 3, height: 3))
+        
+        pupil.position = CGPoint(x: -2, y: 0)
+        addChild(eye)
+        
+        eye.addChild(pupil)
     }
     
     func flappingWing() {
@@ -97,7 +111,7 @@ class MLEnemy: SKSpriteNode {
     }
     
     @objc func startMoving() {
-        let moveLeft = SKAction.moveBy(x: -1.3*kDefaultXToMovePerSecond, y: 0, duration: 1)
+        let moveLeft = SKAction.moveBy(x: -kDefaultXToMovePerSecond, y: 0, duration: 1)
         run(SKAction.repeatForever(moveLeft))
     }
     

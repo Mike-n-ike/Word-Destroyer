@@ -12,7 +12,7 @@ import SpriteKit
 class MLWall: SKSpriteNode {
    
     let WALL_WIDTH: CGFloat = 15.0
-    let WALL_HEIGHT: CGFloat = 50.0
+    let WALL_HEIGHT: CGFloat = 40.0
     let WALL_COLOR = UIColor.black
     
     init() {
@@ -35,8 +35,20 @@ class MLWall: SKSpriteNode {
     }
     
     @objc func startMoving() {
-        let moveLeft = SKAction.moveBy(x: -kDefaultXToMovePerSecond, y: 0, duration: 1)
-        run(SKAction.repeatForever(moveLeft))
+        let moveLeft = SKAction.moveBy(x: -kDefaultXToMovePerSecond, y: 0, duration: 5)
+        let moveUp = SKAction.moveBy(x: 0, y: 5, duration: 1)
+        let moveDown = SKAction.moveBy(x:0, y: -5, duration: 1)
+        
+        run(moveLeft)
+        
+        self.run(moveUp, completion: { () -> Void in
+            self.run(moveDown)
+                self.startMoving()
+        })
+        
+        //run(SKAction.repeatForever(moveLeft))
+        
+        
     }
     
     @objc func stopMoving() {

@@ -27,7 +27,7 @@ class MLEnemyGenerator: SKSpriteNode {
     @objc func generateEnemy() {
         var scale: CGFloat
         
-        let rand = arc4random_uniform(5)
+        let rand = arc4random_uniform(4)
         
         if rand % 2 == 0 {
             scale = -CGFloat(rand)
